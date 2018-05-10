@@ -9,7 +9,13 @@
       :messages="messageList"
       :imageUrl="agentProfile.imageUrl"
     />
-    <UserInput :showEmoji="showEmoji" :onSubmit="onUserInputSubmit" :showFile="showFile" />
+    <UserInput 
+    :showEmoji="showEmoji"
+    :onSubmit="onUserInputSubmit"
+    :showFile="showFile"
+    :button2Title="button2Title"
+    :button2Click="button2Click"
+    />
   </div>
 </template>
 
@@ -52,6 +58,14 @@ export default {
     'isOpen': {
       type: Boolean,
       default: () => false
+    },
+    button2Click:{
+        type: Function,
+    },
+    button2Title:{
+        type:String,
+        default:"",
+        require: false
     }
   },
   data () {

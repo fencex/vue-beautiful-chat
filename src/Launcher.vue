@@ -15,6 +15,8 @@
       :onClose="close"
       :showEmoji="showEmoji"
       :showFile="showFile"
+      :button2Title="button2Title"
+      :button2Click="button2Click"
     />
   </div>
 </template>
@@ -58,6 +60,14 @@ export default {
     newMessagesCount: {
       type: Number,
       default: () => 0
+    },
+    button2Click:{
+        type: Function,
+    },
+    button2Title:{
+        type:String,
+        default:"",
+        require: false
     }
   },
   data () {
@@ -79,7 +89,7 @@ export default {
   background-repeat: no-repeat;
   position: fixed;
   right: 25px;
-  bottom: 25px;
+  bottom: 35px;
   border-radius: 50%;
   box-shadow: none;
   transition: box-shadow 0.2s ease-in-out;
@@ -102,7 +112,7 @@ export default {
   height: 60px;
   position: fixed;
   right: 25px;
-  bottom: 25px;
+  bottom: 35px;
   transition: opacity 100ms ease-in-out, transform 100ms ease-in-out;
 }
 

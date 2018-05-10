@@ -1,12 +1,16 @@
 <template>
-  <div class="sc-message">
+  <div class="sc-message" style="display:flex;justify-content:center;flex-direction:column;">
     <div class="sc-message--content" :class="{sent: message.author === 'me', received: message.author !== 'me'}">
-      <div class="sc-message--avatar" :style="{
-        backgroundImage: `url(${this.chatIcon})`
-      }"></div><TextMessage v-if="message.type === 'text'" :data="message.data" />
+      <!--<div class="sc-message--avatar" :style="{ backgroundImage: `url(${this.chatIcon})` }"></div>-->
+      <TextMessage v-if="message.type === 'text'" :data="message.data" />
       <EmojiMessage v-else-if="message.type === 'emoji'" :data="message.data" />
       <FileMessage v-else-if="message.type === 'file'" :data="message.data" />
     </div>
+    <template v-if="message.datetime">
+    <div :style="'margin-top:5px;font-size:12px;color:#999999;text-align:'+ (message.author === 'me' ? 'right;' : 'left;')">
+        {{message.datetime}}
+    </div>
+    </template>
   </div>
 </template>
 

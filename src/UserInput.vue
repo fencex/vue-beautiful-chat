@@ -11,9 +11,9 @@
         tabIndex="0"
         @focus="setInputActive(true)"
         @blur="setInputActive(false)"
-        @keydown="handleKey"
+        @keyup="handleKey"
         contentEditable="true"
-        placeholder="Write a reply..."
+        placeholder="请输入质疑内容"
         class="sc-user-input--text"
         ref="userInput"
       >
@@ -26,8 +26,16 @@
         <div v-if="showFile" class="sc-user-input--button">
           <FileIcons :onChange="_handleFileSubmit" />
         </div>
-        <div class="sc-user-input--button">
-          <SendIcon :onClick="_submitText" />
+        <div class="sc-user-input--button" style="">
+            <el-button  @click="_submitText" size="small" style="width:80px;">发送</el-button>
+            <template v-if="button2Title">
+            <el-button  @click="button2Click" size="small" style="width:80px;margin-left:0px;" v-if="button2Click">
+                {{button2Title}}
+            </el-button>
+            <el-tag size="small" style="width:80px;margin-left:0px;" v-else>
+                {{button2Title}}
+            </el-tag>
+            </template>
         </div>
       </div>
     </form>
@@ -58,7 +66,16 @@ export default {
     onSubmit: {
       type: Function,
       required: true
+    },
+    button2Click:{
+        type: Function,
+    },
+    button2Title:{
+        type:String,
+        default:"",
+        require: false
     }
+
   },
   data () {
     return {
@@ -74,18 +91,21 @@ export default {
       this.inputActive = onoff
     },
     handleKey (event) {
-      if (event.keyCode === 13 && !event.shiftKey) {
+      if (event.keyCode === 13 && event.shiftKey) {
         this._submitText(event)
       }
     },
     _submitText (event) {
       const text = this.$refs.userInput.textContent
       const file = this.file
+      var myDate = new Date();
+
       if (file) {
         if (text && text.length > 0) {
           this.onSubmit({
             author: 'me',
             type: 'file',
+            datetime: myDate.formatDate('yyyy-MM-dd hh:mm:ss'),
             data: { text, file }
           })
           this.file = null
@@ -94,6 +114,7 @@ export default {
           this.onSubmit({
             author: 'me',
             type: 'file',
+            datetime: myDate.formatDate('yyyy-MM-dd hh:mm:ss'),
             data: { file }
           })
           this.file = null
@@ -103,6 +124,7 @@ export default {
           this.onSubmit({
             author: 'me',
             type: 'text',
+            datetime: myDate.formatDate('yyyy-MM-dd hh:mm:ss'),
             data: { text }
           })
           this.$refs.userInput.innerHTML = ''
@@ -110,9 +132,11 @@ export default {
       }
     },
     _handleEmojiPicked (emoji) {
+      var myDate = new Date();
       this.onSubmit({
         author: 'me',
         type: 'emoji',
+        datetime: myDate.formatDate('yyyy-MM-dd hh:mm:ss'),
         data: { emoji }
       })
     },
@@ -125,7 +149,7 @@ export default {
 
 <style>
 .sc-user-input {
-  min-height: 55px;
+  min-height: 70px;
   margin: 0px;
   position: relative;
   bottom: 0;
