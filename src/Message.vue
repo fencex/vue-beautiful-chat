@@ -17,7 +17,6 @@
 <script>
 import TextMessage from './TextMessage.vue'
 import FileMessage from './FileMessage.vue'
-import EmojiMessage from './EmojiMessage.vue'
 import chatIcon from './assets/chat-icon.svg'
 
 export default {
@@ -28,8 +27,7 @@ export default {
   },
   components: {
     TextMessage,
-    FileMessage,
-    EmojiMessage
+    FileMessage
   },
   props: {
     message: {

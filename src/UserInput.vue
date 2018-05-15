@@ -21,7 +21,6 @@
       <div class="sc-user-input--buttons">
         <div class="sc-user-input--button"></div>
         <div v-if="showEmoji" class="sc-user-input--button">
-          <EmojiIcon :onEmojiPicked="_handleEmojiPicked" />
         </div>
         <div v-if="showFile" class="sc-user-input--button">
           <FileIcons :onChange="_handleFileSubmit" />
@@ -44,13 +43,11 @@
 
 
 <script>
-import EmojiIcon from './EmojiIcon.vue'
 import FileIcons from './FileIcons.vue'
 import SendIcon from './SendIcon.vue'
 
 export default {
   components: {
-    EmojiIcon,
     FileIcons,
     SendIcon
   },
